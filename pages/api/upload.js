@@ -13,5 +13,5 @@ export default async (req, res) => {
   form.parse(req, (err, fields, files) => {
     console.log(err, fields, files);
   });
-  res.end();
+  res.status(200).send('done');
 };
