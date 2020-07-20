@@ -3,6 +3,32 @@ import { truncateString } from '../helper/truncate';
 import { AMENITIES } from '../helper/const';
 import { CaretDownOutlined } from '@ant-design/icons';
 
+const TableInfo = ({ data }) => (
+  <Row style={{ height: '100%', alignItems: 'center' }}>
+    <Col
+      style={{
+        background: '#eee',
+        width: '70px',
+        height: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <h2 className='mb-0'>{data.length}</h2>
+    </Col>
+    <Col span={16}>
+      <h2 style={{ marginLeft: '20px' }}>
+        <strong>listings successfully and Ready to be published</strong>
+      </h2>
+    </Col>
+    <Col span={3}>
+      <p style={{ color: '#0089ff', marginBottom: '0' }}>Update data</p>
+    </Col>
+    <Col span={1}>Published</Col>
+  </Row>
+);
+
 const ListingsTable = ({ data }) => {
   const PopoverContent = (amenities) => {
     return amenities.map((a, i) => a && <p>{AMENITIES[i]}</p>);
@@ -181,31 +207,7 @@ const ListingsTable = ({ data }) => {
         borderBottom: 'solid 2px #e9e9e9',
       }}
     >
-      {data && (
-        <Row style={{ height: '100%', alignItems: 'center' }}>
-          <Col
-            style={{
-              background: '#eee',
-              width: '70px',
-              height: '100%',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <h2 className='mb-0'>{data.length}</h2>
-          </Col>
-          <Col span={16}>
-            <h2 style={{ marginLeft: '20px' }}>
-              <strong>listings successfully and Ready to be published</strong>
-            </h2>
-          </Col>
-          <Col span={3}>
-            <p style={{ color: '#0089ff', marginBottom: '0' }}>Update data</p>
-          </Col>
-          <Col span={1}>Published</Col>
-        </Row>
-      )}
+      {data.length > 0 && <TableInfo data={data} />}
       <Table columns={columns} dataSource={dataSource} pagination={false} />
     </div>
   );
