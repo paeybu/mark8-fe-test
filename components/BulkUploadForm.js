@@ -38,7 +38,7 @@ const BulkUploadForm = ({ onComplete }) => {
               <Col>
                 <Upload
                   name='file'
-                  action='/api/upload'
+                  action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
                   onChange={({ file, fileList }) => {
                     setFileList(fileList.slice(-1));
                     file.status === 'done' &&
