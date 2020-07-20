@@ -2,6 +2,7 @@ import { Table, Tag, Row, Col, Popover } from 'antd';
 import { truncateString } from '../helper/truncate';
 import { AMENITIES } from '../helper/const';
 import { CaretDownOutlined } from '@ant-design/icons';
+import { useState } from 'react';
 
 const TableInfo = ({ data }) => (
   <Row style={{ height: '100%', alignItems: 'center' }}>
@@ -30,6 +31,8 @@ const TableInfo = ({ data }) => (
 );
 
 const ListingsTable = ({ data }) => {
+  const [onHoverImg, setOnHoverImg] = useState(false);
+  const [hoverImg, setHoverImg] = useState(false);
   const PopoverContent = (amenities) => {
     return amenities.map((a, i) => a && <p>{AMENITIES[i]}</p>);
   };
@@ -102,7 +105,24 @@ const ListingsTable = ({ data }) => {
       title: 'PHOTO',
       dataIndex: 'photo1',
       key: 'photo1',
-      render: (photo) => <img src={photo} style={{ maxWidth: '30px' }} />,
+      render: (photo) =>
+        console.log(photo) || (
+          <Row style={{ alignItems: 'center' }}>
+            <img
+              src={photo}
+              style={{ maxWidth: '30px' }}
+              onMouseOver={() => {
+                setOnHoverImg(true);
+                setHoverImg(photo);
+              }}
+            />
+            {onHoverImg && hoverImg === photo && (
+              <a className='mb-0' onClick={() => 'Edit Photo'}>
+                Edit Photo
+              </a>
+            )}
+          </Row>
+        ),
     },
     {
       title: 'TITLE',

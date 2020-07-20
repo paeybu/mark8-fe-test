@@ -9,7 +9,6 @@ const Home = () => {
   const [listings, setListings] = useState([]);
 
   const onComplete = (res) => {
-    console.log(res.data);
     setListings(res.data);
   };
   return (
