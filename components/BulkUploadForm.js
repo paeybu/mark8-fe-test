@@ -20,11 +20,13 @@ const BulkUploadForm = ({ onComplete }) => {
                   <ExclamationOutlined style={{ color: 'white' }} />
                 </CircleIconWrapper>
               </div>
-              <div>
-                <p style={{ color: '#0089ff' }}>
-                  You haven't uploaded any bulk data yet
-                </p>
-              </div>
+              {fileList.length === 0 && (
+                <div>
+                  <p style={{ color: '#0089ff' }}>
+                    You haven't uploaded any bulk data yet
+                  </p>
+                </div>
+              )}
             </>
           }
         >
