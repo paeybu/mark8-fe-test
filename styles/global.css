@@ -15,6 +15,10 @@ h6,
   color: #002240;
 }
 
+.ant-table-tbody > tr > td:nth-child(1) {
+  text-align: center;
+}
+
 .ant-popover-title {
   border-bottom: 2px solid #0089ff;
 }

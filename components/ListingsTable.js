@@ -1,8 +1,9 @@
-import { Table, Tag, Row, Col, Popover } from 'antd';
+import { Table, Tag, Row, Col, Popover, Typography, Button } from 'antd';
 import { truncateString } from '../helper/truncate';
 import { AMENITIES } from '../helper/const';
 import { CaretDownOutlined } from '@ant-design/icons';
 import { useState } from 'react';
+const { Text } = Typography;
 
 const TableInfo = ({ data }) => (
   <Row style={{ height: '100%', alignItems: 'center' }}>
@@ -42,41 +43,134 @@ const ListingsTable = ({ data }) => {
       title: '',
       dataIndex: 'id',
       key: 'id',
+      render: (id, listing) => {
+        const {
+          'condo_name-EN': condoNameEn,
+          rent_price,
+          sale_price,
+          bedroom,
+          bath,
+          'size (sq.m)': size,
+          floor,
+          photo1,
+          title,
+          description,
+        } = listing;
+        const hasRequiredFields =
+          condoNameEn &&
+          rent_price &&
+          rent_price !== '0' &&
+          sale_price &&
+          sale_price !== '0' &&
+          bedroom &&
+          bedroom !== '0' &&
+          bath &&
+          bath !== '0' &&
+          size &&
+          size !== '0' &&
+          floor &&
+          floor !== '0' &&
+          photo1 &&
+          title &&
+          description;
+        return hasRequiredFields ? (
+          <Text>{id}</Text>
+        ) : (
+          <Button type='danger'>
+            <Text style={{ color: 'white' }}>{id}</Text>
+          </Button>
+        );
+      },
     },
     {
       title: 'CONDO NAME',
       dataIndex: 'condo_name-EN',
       key: 'condo_name-EN',
+      render: (value) => (value ? value : <Text type='danger'>Not found</Text>),
     },
     {
       title: 'RENT PRICE (Baht)',
       dataIndex: 'rent_price',
       key: 'rent_price',
+      render: (value) => {
+        if (!value) {
+          return <Text type='danger'>Not found</Text>;
+        } else if (value === '0') {
+          return <Text type='danger'>Not found</Text>;
+        } else {
+          return value;
+        }
+      },
     },
     {
       title: 'SELL PRICE (Baht)',
       dataIndex: 'sale_price',
       key: 'sale_price',
+      render: (value) => {
+        if (!value) {
+          return <Text type='danger'>Not found</Text>;
+        } else if (value === '0') {
+          return <Text type='danger'>Not found</Text>;
+        } else {
+          return value;
+        }
+      },
     },
     {
       title: 'BEDROOM',
       dataIndex: 'bedroom',
       key: 'bedroom',
+      render: (value) => {
+        if (!value) {
+          return <Text type='danger'>Not found</Text>;
+        } else if (value === '0') {
+          return <Text type='danger'>Not found</Text>;
+        } else {
+          return value;
+        }
+      },
     },
     {
       title: 'BATHROOM',
       dataIndex: 'bath',
       key: 'bath',
+      render: (value) => {
+        if (!value) {
+          return <Text type='danger'>Not found</Text>;
+        } else if (value === '0') {
+          return <Text type='danger'>Not found</Text>;
+        } else {
+          return value;
+        }
+      },
     },
     {
       title: 'SIZE (sqm.)',
       dataIndex: 'size (sq.m)',
       key: 'size (sq.m)',
+      render: (value) => {
+        if (!value) {
+          return <Text type='danger'>Not found</Text>;
+        } else if (value === '0') {
+          return <Text type='danger'>Not found</Text>;
+        } else {
+          return value;
+        }
+      },
     },
     {
       title: 'FLOOR',
       dataIndex: 'floor',
       key: 'floor',
+      render: (value) => {
+        if (!value) {
+          return <Text type='danger'>Not found</Text>;
+        } else if (value === '0') {
+          return <Text type='danger'>Not found</Text>;
+        } else {
+          return value;
+        }
+      },
     },
     {
       title: 'STATUS',
@@ -106,7 +200,7 @@ const ListingsTable = ({ data }) => {
       dataIndex: 'photo1',
       key: 'photo1',
       render: (photo) =>
-        console.log(photo) || (
+        photo ? (
           <Row style={{ alignItems: 'center' }}>
             <img
               src={photo}
@@ -122,6 +216,8 @@ const ListingsTable = ({ data }) => {
               </a>
             )}
           </Row>
+        ) : (
+          <Text type='danger'>Not found</Text>
         ),
     },
     {
@@ -191,6 +287,7 @@ const ListingsTable = ({ data }) => {
       } = listing;
       dataSource.push({
         key: id,
+        id,
         'condo_name-EN': condoNameEn,
         rent_price,
         sale_price,
