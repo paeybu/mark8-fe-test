@@ -37,6 +37,11 @@ const BulkUploadForm = ({ onComplete }) => {
             <Row>
               <Col>
                 <Upload
+                  name='file'
+                  headers={{
+                    authorization: 'authorization-text',
+                  }}
+                  action='/api/upload'
                   onChange={({ file, fileList }) => {
                     setFileList(fileList.slice(-1));
                     file.status === 'done' &&
