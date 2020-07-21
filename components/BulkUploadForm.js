@@ -1,11 +1,19 @@
 import { useState } from 'react';
-import { Card, Row, Col, Upload, Button } from 'antd';
+import { Card, Row, Col, Upload, Button, message } from 'antd';
 import { ExclamationOutlined, UploadOutlined } from '@ant-design/icons';
 import { CircleIconWrapper, RectangleIconWrapper } from './Icon';
 import Papa from 'papaparse';
 
 const BulkUploadForm = ({ onComplete }) => {
   const [fileList, setFileList] = useState([]);
+
+  const beforeUpload = (file) => {
+    const isCsv = file.type === 'application/vnd.ms-excel';
+    if (!isCsv) {
+      message.error('You can only upload CSV file');
+    }
+    return isCsv;
+  };
   return (
     <Row justify='center'>
       <Col span={12}>
@@ -37,6 +45,7 @@ const BulkUploadForm = ({ onComplete }) => {
             <Row>
               <Col>
                 <Upload
+                  beforeUpload={beforeUpload}
                   name='file'
                   action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
                   onChange={({ file, fileList }) => {
